@@ -1,0 +1,30 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /
+    session:
+      #设置session保存时间12小时 s代表秒 m代表分 h代表小时 d代表天
+      timeout: 12h
+  tomcat:
+    max-threads: 200
+
+spring:
+  jmx:
+    enabled: false
+  mvc:
+    async:
+      request-timeout: 20000s
+
+  profiles:
+    active: test
+
+
+
+
+
+
+
+
+
+
+
