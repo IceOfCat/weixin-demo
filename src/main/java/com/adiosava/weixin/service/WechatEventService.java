@@ -17,5 +17,5 @@ public interface WechatEventService {
      * @param request
      * @param response
      */
-    boolean processEvent(HttpServletRequest request, HttpServletResponse response)throws IOException;
+    boolean processEvent(HttpServletRequest request)throws IOException;
 }

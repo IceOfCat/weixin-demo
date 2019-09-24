@@ -68,4 +68,5 @@ public class WechatTemplateController  extends BaseController {
         return success().put("result", responseDTO);
     }
 
+
 }

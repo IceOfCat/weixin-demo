@@ -10,9 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 微信小程序公众号接口
@@ -22,7 +24,7 @@ import java.io.IOException;
  **/
 @Slf4j
 @Controller
-@RequestMapping("/wx")
+@RequestMapping("/wechat")
 public class WeChatOfficialAccountController extends BaseController {
 
     @Autowired
@@ -39,21 +41,35 @@ public class WeChatOfficialAccountController extends BaseController {
      * echostr 随机字符串
      * @return
      */
-    @RequestMapping("/receiveWX")
+    @RequestMapping(method = {RequestMethod.GET})
     @ResponseBody
-    public Response   receive( WeChatRequestDTO weChatRequestDTO){
+    public void    receive( WeChatRequestDTO weChatRequestDTO){
         log.info("接收到微信消息");
         Boolean checkSignature =weChatOfficialAccountService.checkSignature(weChatRequestDTO);
         if(checkSignature){
             log.info("验证成功");
             try {
-                wechatEventService.processEvent(request, response);
+                PrintWriter writer = response.getWriter();
+                writer.write(weChatRequestDTO.getEchostr());
             } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
-            return success();
         }
-        return null;
+    }
+
+    @RequestMapping(method = {RequestMethod.POST})
+    @ResponseBody
+    public void    processEvent(){
+        log.info("接收到微信消息");
+        try {
+            boolean b = wechatEventService.processEvent(request);
+            PrintWriter writer = response.getWriter();
+            if(b){
+                writer.write("success");
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
     }
 
     @RequestMapping("/getToken")
