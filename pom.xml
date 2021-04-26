@@ -31,7 +31,7 @@
         <aspectjweaver.version>1.8.10</aspectjweaver.version>
         <javax.servlet.version>3.0.1</javax.servlet.version>
         <slf4j.version>1.7.12</slf4j.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons.lang3.version>3.5</commons.lang3.version>
         <commons.configuration.version>1.10</commons.configuration.version>
         <velocity.version>1.7</velocity.version>
